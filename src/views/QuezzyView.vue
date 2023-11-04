@@ -1,6 +1,6 @@
 <template>
    <div class="quezzy-home">
-     <div class="img-logo" style="height:80vh;">
+     <div class="img-logo select-none" style="height:80vh;">
        <img src="../assets/logoqueezy.png" alt="Logo Queezy">
       </div>
 
@@ -9,14 +9,22 @@
           Começar
         </vs-button>
       </div>
+
+      <RegisterUser/>
    </div>
  </template>
  
- <script>
- export default {
-   name: 'QuezzyView',
- }
- </script>
+<script>
+  import RegisterUser from '@/components/RegisterUser.vue';
+
+  export default {
+    name: 'QuezzyView',
+
+    components: {
+      RegisterUser
+    }
+  }
+</script>
  
  <style>
  body {
