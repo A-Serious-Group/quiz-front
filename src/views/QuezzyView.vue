@@ -1,31 +1,38 @@
 <template>
-    <div>
-        
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'QuezzyView',
-  
-  }
-  </script>
-  
-  <style scoped>
-    #links{
-      color:#00379a;
-      font-weight: 500;
-      text-decoration: none;
-      transition: .3s;
-    }
-    #links:hover{
-      color:#0148cc;
-      border-bottom: 1px solid black;
-      font-size: 25px;
-      transition: .3s;
-      
-    }
-    #paragraph{
-      font-size: 1.3em;
-    }
-  </style>
+   <div class="quezzy-home">
+     <div class="img-logo" style="height:80vh;">
+       <img src="../assets/logoqueezy.png" alt="Logo Queezy">
+      </div>
+
+      <div style="text-align: center;">
+        <vs-button color="#8a2253" class="fontt" style="width: 18em; border-radius:15px; font-size:3em;">
+          Começar
+        </vs-button>
+      </div>
+   </div>
+ </template>
+ 
+ <script>
+ export default {
+   name: 'QuezzyView',
+ }
+ </script>
+ 
+ <style>
+ body {
+   background-color: #feecd4;
+ }
+ 
+ .img-logo {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 40vh;
+ }
+ 
+ .img-logo img {
+   width: 60%;
+   max-height: 100%;
+ }
+ </style>
+ 
