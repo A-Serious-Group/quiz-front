@@ -4,6 +4,7 @@ import Vuesax from 'vuesax3'
 import router from './router'
 
 import 'vuesax3/dist/vuesax.css'
+import './index.css'
 
 const app = createApp(App)
 
