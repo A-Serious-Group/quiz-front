@@ -3,9 +3,13 @@ import App from './App.vue'
 import Vuesax from 'vuesax3'
 import router from './router'
 
-import 'vuesax3/dist/vuesax.css'
+import './vuesax.css'
 import './index.css'
+
+import 'material-icons';
+
 import './assets/scss/main.scss'
+
 
 const app = createApp(App)
 
