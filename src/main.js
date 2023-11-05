@@ -5,7 +5,11 @@ import router from './router'
 
 import './vuesax.css'
 import './index.css'
+
 import 'material-icons';
+
+import './assets/scss/main.scss'
+
 
 const app = createApp(App)
 
