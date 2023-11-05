@@ -12,6 +12,12 @@
     <LogIn
       :isActive="openLogInPopUp"
       @isActiveFalse="openLogInPopUp = false"
+      @createUser="registerModal()"
+    />
+
+    <SingIn
+      :isActive="openSingInPopUp"
+      @isActiveFalse="openSingInPopUp = false"
     />
 
   </div>
@@ -21,16 +27,25 @@
 <script>
 
 import LogIn from '@/components/LoginRegister/LogIn.vue'
+import SingIn from '@/components/LoginRegister/SingIn.vue'
 
 export default {
   name: 'RegisterUser',
 
   components: {
-   LogIn
+    LogIn,
+    SingIn
   },
   data:()=>({
-      openLogInPopUp: false
-  })
+      openLogInPopUp: false,
+      openSingInPopUp: false,
+  }),
+  methods: {
+    registerModal() {
+      this.openLogInPopUp  = false
+      this.openSingInPopUp = true
+    }
+  }
 }
 </script>
 

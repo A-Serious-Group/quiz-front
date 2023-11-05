@@ -3,10 +3,10 @@
       <vs-popup title="Login" :active="isActive" @close="$emit('isActiveFalse')">
         <div class="input-register">
           <vs-input color="#8a2253" class="mb-4" icon="person" placeholder="Email" v-model="email"/>
-          <vs-input color="#8a2253" type="password" icon="lock" placeholder="Password" v-model="password"/>
+          <vs-input color="#8a2253" type="password" icon="lock" placeholder="Senha" v-model="password"/>
         </div>
 
-        <p style="margin-left: 3.8em;" class="mt-3">
+        <p style="margin-left: 3.8em;" class="mt-3 cursor-pointer" @click="$emit('createUser')">
             Não tem conta? Cadastre-se
         </p>
 
