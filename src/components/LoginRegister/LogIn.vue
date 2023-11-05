@@ -6,7 +6,11 @@
           <vs-input color="#8a2253" type="password" icon="lock" placeholder="Password" v-model="password"/>
         </div>
 
-        <vs-button color="#8a2253" class="mt-4" style="margin-left: 3.6em;" @click="login()">
+        <p style="margin-left: 3.8em;" class="mt-3">
+            Não tem conta? Cadastre-se
+        </p>
+
+        <vs-button color="#8a2253" class="mt-4" style="margin-left: 3.8em;" @click="login()">
             Login
         </vs-button>
       </vs-popup>
@@ -35,7 +39,6 @@
                     color: 'danger'
                 })
             }
-
         }
     }
   }
