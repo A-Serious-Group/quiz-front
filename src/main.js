@@ -5,6 +5,7 @@ import router from './router'
 
 import 'vuesax3/dist/vuesax.css'
 import './index.css'
+import './assets/scss/main.scss'
 
 const app = createApp(App)
 
