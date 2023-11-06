@@ -38,7 +38,7 @@
     },
     methods: {
         register() {
-            if (!this.password || !this.email) {
+            if (!this.password || !this.email || !this.userName) {
                 return this.$vs.notify({
                     title:'Atenção!',
                     text:'Não foram fornecidos os campos necessários para o cadastro',
