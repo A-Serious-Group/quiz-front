@@ -8,7 +8,7 @@
             <vs-input color="#8a2253" :type="showPassword ? 'text' : 'password'" placeholder="Senha" v-model="password"/>
 
         </div>
-            <div style="margin-left: 3.7em;">
+            <div style="margin-left: 4em;">
                 <vs-checkbox color="#8a2253" class="mt-4 select-none cursor-pointer" v-model="showPassword">
                     <span @click="showPassword = !showPassword">Exibir Senha</span>
                 </vs-checkbox>
@@ -57,7 +57,7 @@
         align-items: center;
 
         .vs-con-input-label {
-            width: 45vh;
+            width: 27em;
         }
     }
 </style>

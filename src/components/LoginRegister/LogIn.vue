@@ -6,11 +6,11 @@
           <vs-input color="#8a2253" type="password" icon="lock" placeholder="Senha" v-model="password"/>
         </div>
 
-        <p style="margin-left: 3.8em;" class="mt-3 cursor-pointer" @click="$emit('createUser')">
+        <p style="margin-left: 4em;" class="mt-3 cursor-pointer" @click="$emit('createUser')">
             Não tem conta? Cadastre-se
         </p>
 
-        <vs-button color="#8a2253" class="mt-4" style="margin-left: 3.8em;" @click="login()">
+        <vs-button color="#8a2253" class="mt-4" style="margin-left: 4em;" @click="login()">
             Login
         </vs-button>
       </vs-popup>
@@ -51,7 +51,7 @@
         align-items: center;
 
         .vs-con-input-label {
-            width: 45vh;
+            width: 27em;
         }
     }
 </style>
