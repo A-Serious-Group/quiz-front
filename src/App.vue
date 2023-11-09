@@ -55,6 +55,10 @@ export default {
     font-weight: 400
   }
 
+  .primary-quiz {
+    color:#8a2253;
+  }
+
   /* @import '~bootstrap/dist/css/bootstrap.css'; */
 
   @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");

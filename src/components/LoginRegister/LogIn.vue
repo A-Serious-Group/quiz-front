@@ -6,7 +6,7 @@
           <vs-input color="#8a2253" type="password" icon="lock" placeholder="Senha" v-model="password"/>
         </div>
 
-        <p style="margin-left: 4em;" class="mt-3 cursor-pointer" @click="$emit('createUser')">
+        <p style="margin-left: 4em;" class="mt-3 cursor-pointer link-hover" @click="$emit('createUser')">
             Não tem conta? Cadastre-se
         </p>
 
@@ -53,6 +53,14 @@
         .vs-con-input-label {
             width: 27em;
         }
+    }
+    .link-hover:hover {
+        transition: .2s;
+        color: #8a2253;
+        font-size: 17px;
+    }
+    .link-hover {
+        transition: .2s;
     }
 </style>
   
