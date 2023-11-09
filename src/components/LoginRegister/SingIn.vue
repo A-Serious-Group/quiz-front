@@ -74,6 +74,16 @@
             })
             
         }
+    },
+    watch: {
+        isActive(val) {
+            if (val) {
+                this.email = '';
+                this.userName = '';
+                this.password = '';
+                this.showPassword = false;
+            }
+        }
     }
   }
 </script>
