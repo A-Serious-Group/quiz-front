@@ -12,12 +12,13 @@
     <LogIn
       :isActive="openLogInPopUp"
       @isActiveFalse="openLogInPopUp = false"
-      @createUser="registerModal()"
+      @createUser="switchModal()"
     />
 
     <SingIn
       :isActive="openSingInPopUp"
       @isActiveFalse="openSingInPopUp = false"
+      @switchModal="switchModal()"
     />
 
   </div>
@@ -41,9 +42,9 @@ export default {
       openSingInPopUp: false,
   }),
   methods: {
-    registerModal() {
-      this.openLogInPopUp  = false
-      this.openSingInPopUp = true
+    switchModal() {
+      this.openLogInPopUp  = !this.openLogInPopUp
+      this.openSingInPopUp = !this.openSingInPopUp
     }
   }
 }

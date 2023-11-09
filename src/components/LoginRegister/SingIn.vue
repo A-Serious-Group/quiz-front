@@ -22,6 +22,8 @@
 </template>
   
 <script>
+    import userApi from '@/requests/user'
+
   export default {
     name: 'SingIn',
     data:()=>({
@@ -37,7 +39,7 @@
         },
     },
     methods: {
-        register() {
+        async register() {
             if (!this.password || !this.email || !this.userName) {
                 return this.$vs.notify({
                     title:'Atenção!',
@@ -45,6 +47,25 @@
                     color: 'danger'
                 })
             }
+            await userApi.create(this.userName, this.email, this.password)
+            .then((respose) => {
+                this.$vs.notify({
+                    title:'Atenção!',
+                    text:respose.mensagem,
+                    color: 'success'
+                })
+
+                this.$emit('switchModal');
+            })
+            .catch((error) => {
+                console.log(error)
+                return this.$vs.notify({
+                    title:'Atenção!',
+                    text: error.mensagem,
+                    color: 'danger'
+                })
+            })
+            
         }
     }
   }
