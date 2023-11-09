@@ -1,6 +1,14 @@
 <template>
     <div>
       <vs-popup title="Cadastrar" :active="isActive" @close="$emit('isActiveFalse')">
+
+        <i 
+        class="material-icons p-1 mb-2 text-white select-none pointer cursor-pointer"
+        style="border-radius:20px; background-color: #8a2253;"
+        @click="$emit('switchModal')">
+            arrow_back
+        </i>
+
         <div class="input-register">
 
             <vs-input color="#8a2253" class="mb-4" placeholder="Nome" v-model="userName"/>
