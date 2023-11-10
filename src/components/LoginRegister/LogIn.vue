@@ -18,30 +18,61 @@
 </template>
   
 <script>
-  export default {
-    name: 'LogIn',
-    data:()=>({
-        email: '',
-        password: '',
-    }),
-    props: {
-        isActive: {
-            type: Boolean,
-            required: true
+    import userApi from '@/requests/user'
+
+    export default {
+        name: 'LogIn',
+        data:()=>({
+            email: '',
+            password: '',
+        }),
+        props: {
+            isActive: {
+                type: Boolean,
+                required: true
+            },
         },
-    },
-    methods: {
-        login() {
-            if (!this.password || !this.email) {
-                return this.$vs.notify({
-                    title:'Atenção!',
-                    text:'Não foram fornecidos os campos necessários para o Login',
-                    color: 'danger'
+        methods: {
+            async login() {
+                if (!this.password || !this.email) {
+                    return this.$vs.notify({
+                        title:'Atenção!',
+                        text:'Não foram fornecidos os campos necessários para o Login',
+                        color: 'danger'
+                    })
+                }
+
+                await userApi.login(this.email, this.password)
+                .then((respose) => {
+                    this.$vs.notify({
+                        title:'Atenção!',
+                        text:respose.mensagem,
+                        color: 'success'
+                    })
+
+                    localStorage.setItem('access_token', respose.user.access_token);
+                    localStorage.setItem('userInfo', JSON.stringify(respose.user));
+
                 })
+                .catch((error) => {
+                    console.log(error)
+                    return this.$vs.notify({
+                        title:'Atenção!',
+                        text: error.message,
+                        color: 'danger'
+                    })
+                })
+            }
+        },
+        watch: {
+            isActive(val) {
+                if (val) {
+                    this.email    = ''
+                    this.password = ''
+                }
             }
         }
     }
-  }
 </script>
   
 <style lang="scss">
