@@ -3,7 +3,15 @@
       <vs-popup title="Login" :active="isActive" @close="$emit('isActiveFalse')">
         <div class="input-register">
           <vs-input color="#8a2253" class="mb-4" icon="person" placeholder="Email" v-model="email"/>
-          <vs-input color="#8a2253" type="password" icon="lock" placeholder="Senha" v-model="password"/>
+          
+          <vs-input 
+            color="#8a2253" 
+            type="password" 
+            icon="lock" 
+            placeholder="Senha" 
+            v-model="password" 
+            @keydown.enter="login()"
+          />
         </div>
 
         <p style="margin-left: 4em;" class="mt-3 cursor-pointer link-hover" @click="$emit('createUser')">
@@ -43,22 +51,34 @@
                 }
 
                 await userApi.login(this.email, this.password)
-                .then((respose) => {
-                    this.$vs.notify({
-                        title:'Atenção!',
-                        text:respose.mensagem,
-                        color: 'success'
-                    })
+                .then((response) => {
 
-                    localStorage.setItem('access_token', respose.user.access_token);
-                    localStorage.setItem('userInfo', JSON.stringify(respose.user));
+                    console.log('oi', response);
+                    if (response.status != 401) {
+
+                        this.$vs.notify({
+                            title:'Atenção!',
+                            text:response.mensagem,
+                            color: 'success'
+                        })
+                        
+                        localStorage.setItem('access_token', response.user.access_token);
+                        localStorage.setItem('userInfo', JSON.stringify(response.user));
+                        this.$emit('isActiveFalse');
+                    } else {
+                        return this.$vs.notify({
+                            title:'Sucesso',
+                            text: response.response.mensagem,
+                            color: 'danger'
+                        })
+                    }
 
                 })
                 .catch((error) => {
-                    console.log(error)
+                    console.log("ERROR",error.response.data)
                     return this.$vs.notify({
                         title:'Atenção!',
-                        text: error.message,
+                        text: error.response.data.message[0],
                         color: 'danger'
                     })
                 })
