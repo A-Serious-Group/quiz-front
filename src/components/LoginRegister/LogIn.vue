@@ -53,7 +53,6 @@
                 await userApi.login(this.email, this.password)
                 .then((response) => {
 
-                    console.log('oi', response);
                     if (response.status != 401) {
 
                         this.$vs.notify({
