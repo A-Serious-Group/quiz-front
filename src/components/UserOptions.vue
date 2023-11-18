@@ -39,6 +39,12 @@
         logout() {
             localStorage.removeItem('access_token');
             localStorage.removeItem('userInfo');
+
+            this.$vs.notify({
+                title:'Atenção',
+                text: 'Logout Realizado com Sucesso',
+                color: 'success'
+            })
             location.reload();
         }
     },
