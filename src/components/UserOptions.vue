@@ -11,7 +11,7 @@
             
             <div class="flex items-center justify-center flex-wrap flex-col items-stretch" style="height: 100% !important;">
                 <div class="flex flex-col items-stretch space-y-7">
-                    <vs-button color="#cbaca4" class="button-user-options">
+                    <vs-button color="#cbaca4" class="button-user-options" @click="$router.push('/manage-quiz');">
                         Gerenciar Quiz
                     </vs-button>
             
