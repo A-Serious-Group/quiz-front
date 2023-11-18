@@ -73,7 +73,7 @@
                 updatedUser.name  = response.user.name
 
                 localStorage.removeItem('userInfo');
-                localStorage.setItem('userInfor', JSON.stringify(updatedUser))
+                localStorage.setItem('userInfo', JSON.stringify(updatedUser))
 
                 this.$vs.notify({
                     title:'Sucesso',
