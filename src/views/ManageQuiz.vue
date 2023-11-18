@@ -2,6 +2,12 @@
   <div>
     <h1 style="font-size: 3em;" class="p-5 fontt select-none">Listas dos jogos Criados</h1>
 
+    <div class="pl-5 pb-2">
+      <vs-button type="border" color="#8a2253">
+        <i class="bi bi-plus-lg"></i> Novo Jogo
+      </vs-button>
+    </div>
+
     <div class="relative overflow-x-auto p-5" id="game-table">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
