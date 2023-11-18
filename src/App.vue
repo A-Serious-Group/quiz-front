@@ -1,6 +1,6 @@
 <template>
+  <NavBar/>
   <router-view/>
-  <!-- <SideBar/> -->
 
   <footer style="text-align: right;" class="footer mr-2 mb-1">
     Todos os Direitos reservados <i class="bi bi-c-circle"></i> A Serious Group - {{ year }}
@@ -9,12 +9,12 @@
 </template>
 
 <script>
-// import SideBar from './components/SideBar.vue';
+import NavBar from './components/NavBar.vue';
 
 
 export default {
   components: {
-    // SideBar
+    NavBar
   },
   computed: {
     year() {

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ManageQuiz from '../views/ManageQuiz.vue'
 import QuezzyView from '../views/QuezzyView.vue'
+import NotFound from '../views/NotFound'
 
 
 const routes = [
@@ -20,7 +21,14 @@ const routes = [
       title: 'Gerenciar Quiz'
     }
   },
-  
+  {
+    path: '/:catchAll(.*)',
+    name: 'not-found',
+    component: NotFound,
+    meta: {
+      title: 'Não Encontrado'
+    }
+  }
 ]
 
 const router = createRouter({
