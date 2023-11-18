@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ManageQuiz from '../views/ManageQuiz.vue'
+import NewQuiz from '../views/NewQuiz.vue'
 import QuezzyView from '../views/QuezzyView.vue'
 import NotFound from '../views/NotFound'
 
@@ -19,6 +20,25 @@ const routes = [
     component: ManageQuiz,
     meta: {
       title: 'Gerenciar Quiz'
+    },
+    beforeEnter: (to, from, next) => {
+      
+      const token = localStorage.getItem('access_token');
+      const user  = localStorage.getItem('userInfo');
+
+      if (token && user) {
+        next();
+      } else {
+        next('/');
+      }
+    },
+  },
+  {
+    path: '/create-quiz',
+    name: 'NewQuiz',
+    component: NewQuiz,
+    meta: {
+      title: 'Criar Quiz'
     },
     beforeEnter: (to, from, next) => {
       

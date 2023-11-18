@@ -3,7 +3,7 @@
     <h1 style="font-size: 3em;" class="p-5 fontt select-none">Listas dos jogos Criados</h1>
 
     <div class="pl-5 pb-2">
-      <vs-button type="border" color="#8a2253">
+      <vs-button type="border" color="#8a2253" @click="$router.push('/create-quiz')">
         <i class="bi bi-plus-lg"></i> Novo Jogo
       </vs-button>
     </div>
