@@ -19,7 +19,18 @@ const routes = [
     component: ManageQuiz,
     meta: {
       title: 'Gerenciar Quiz'
-    }
+    },
+    beforeEnter: (to, from, next) => {
+      
+      const token = localStorage.getItem('access_token');
+      const user  = localStorage.getItem('userInfo');
+
+      if (token && user) {
+        next();
+      } else {
+        next('/');
+      }
+    },
   },
   {
     path: '/:catchAll(.*)',
