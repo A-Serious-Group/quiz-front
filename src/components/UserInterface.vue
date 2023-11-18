@@ -23,6 +23,13 @@
     <UserOptions
       :isActive="openUserOptions"
       @isActiveFalse="openUserOptions = false"
+      @manageAccount="manageAccount()"
+    />
+
+    <ManageAccount
+      :isActive="openManageAccount"
+      @isActiveFalse="openManageAccount = false"
+      @backModal="manageAccount()"
     />
 
   </div>
@@ -34,19 +41,22 @@
 import LogIn from '@/components/LoginRegister/LogIn.vue'
 import SingIn from '@/components/LoginRegister/SingIn.vue'
 import UserOptions from '@/components/UserOptions'
+import ManageAccount from '@/components/ManageAccount'
 
 export default {
-  name: 'RegisterUser',
+  name: 'UserInterface',
 
   components: {
     LogIn,
     SingIn,
-    UserOptions
+    UserOptions,
+    ManageAccount
   },
   data:()=>({
       openLogInPopUp: false,
       openSingInPopUp: false,
       openUserOptions: false,
+      openManageAccount: false,
   }),
   methods: {
     switchModal() {
@@ -60,17 +70,21 @@ export default {
       else {
         this.openLogInPopUp = true;
       }
+    },
+    manageAccount() {
+      this.openUserOptions = !this.openUserOptions;
+      this.openManageAccount = !this.openManageAccount;
     }
   }
 }
 </script>
 
 <style scoped>
-.user-icon-container {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background-color: #8a2253;
-  border-radius: 30px;
-}
+  .user-icon-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #8a2253;
+    border-radius: 30px;
+  }
 </style>

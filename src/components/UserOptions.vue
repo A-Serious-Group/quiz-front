@@ -15,7 +15,7 @@
                         Gerenciar Quiz
                     </vs-button>
             
-                    <vs-button color="#cbaca4" class="button-user-options">
+                    <vs-button color="#cbaca4" class="button-user-options" @click="$emit('manageAccount')"> 
                         Gerenciar Conta
                     </vs-button>
             
@@ -35,10 +35,6 @@
   export default {
     name: 'UserOptions',
   
-
-    data:()=>({
-        
-    }),
     methods: {
         logout() {
             localStorage.removeItem('access_token');

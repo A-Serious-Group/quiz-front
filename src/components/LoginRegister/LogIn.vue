@@ -66,7 +66,7 @@
                         this.$emit('isActiveFalse');
                     } else {
                         return this.$vs.notify({
-                            title:'Sucesso',
+                            title:'Atenção',
                             text: response.response.mensagem,
                             color: 'danger'
                         })

@@ -10,18 +10,18 @@
         </vs-button>
       </div>
 
-      <RegisterUser/>
+      <UserInterface/>
    </div>
  </template>
  
 <script>
-  import RegisterUser from '@/components/RegisterUser.vue';
+  import UserInterface from '@/components/UserInterface.vue';
 
   export default {
     name: 'QuezzyView',
 
     components: {
-      RegisterUser
+      UserInterface
     }
   }
 </script>
