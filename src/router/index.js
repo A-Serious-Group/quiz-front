@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import LoginView from '../views/LoginView.vue'
+import ManageQuiz from '../views/ManageQuiz.vue'
 import QuezzyView from '../views/QuezzyView.vue'
 
 
@@ -12,14 +12,14 @@ const routes = [
       title: 'Quezzy'
     }
   },
-  // {
-  //   path: '/login',
-  //   name: 'LoginView',
-  //   component: LoginView,
-  //   meta: {
-  //     title: 'Login'
-  //   }
-  // },
+  {
+    path: '/manage-quiz',
+    name: 'ManageQuiz',
+    component: ManageQuiz,
+    meta: {
+      title: 'Gerenciar Quiz'
+    }
+  },
   
 ]
 
