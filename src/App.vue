@@ -2,9 +2,9 @@
   <NavBar/>
   <router-view/>
 
-  <footer style="text-align: right;" class="footer mr-2 mb-1">
+  <!-- <footer style="text-align: right;" class="footer mr-2 mb-1">
     Todos os Direitos reservados <i class="bi bi-c-circle"></i> A Serious Group - {{ year }}
-  </footer>
+  </footer> -->
   
 </template>
 
