@@ -1,9 +1,9 @@
 <template lang="html">
   <div>
-    <h1 style="font-size: 3em;" class="p-5 fontt select-none">Listas dos jogos Criados</h1>
+    <h1 style="font-size: 3em;" class="p-5 fontt select-none">Lista de jogos Criados</h1>
 
     <div class="pl-5 pb-2">
-      <vs-button type="border" color="#8a2253" @click="$router.push('/create-quiz')">
+      <vs-button type="border" color="#8a2253" @click="openGameSettings = true">
         <i class="bi bi-plus-lg"></i> Novo Jogo
       </vs-button>
     </div>
@@ -37,14 +37,33 @@
       </table>
     </div>
 
+    <NewQuestion
+      :is-active="openNewQuestion" 
+      @isActiveFalse="openNewQuestion = false"
+      @switchModal="changeModalOrder()"
+    />
+
+    <GameSettings
+      :is-active="openGameSettings" 
+      @isActiveFalse="openGameSettings = false"
+      @NewQuestion="changeModalOrder()"
+    />
   </div>
 </template>
 
 <script>
+import NewQuestion from '@/components/NewQuestion.vue'
+import GameSettings from '@/components/GameSettings.vue'
+
 export default {
   data:()=>({
-
+    openNewQuestion: false,
+    openGameSettings: false,
   }),
+  components: {
+    NewQuestion,
+    GameSettings
+  },
   methods: {
     deleteGame() {
       this.$vs.dialog({
@@ -56,6 +75,10 @@ export default {
         acceptText: 'Deletar',
         cancelText: 'Cancelar',
       })
+    },
+    changeModalOrder() {
+      this.openNewQuestion = !this.openNewQuestion
+      this.openGameSettings = !this.openGameSettings
     }
   }
 }

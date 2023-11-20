@@ -82,7 +82,7 @@
         margin-left: 0 !important;
         width: max-content;
         height: 85vh;
-      }
+    }
   }
   </style>
   
