@@ -12,6 +12,12 @@ export default {
         )).data
     },
 
+    async getAll() {
+        return (await axios.get(
+            '/queezy/api/games'
+        )).data
+    },
+
     async delete(id) {
         return (await axios.delete(
             '/queezy/api/game/'+ id
