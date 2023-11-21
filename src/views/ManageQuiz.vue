@@ -8,7 +8,7 @@
       </vs-button>
     </div>
 
-    <div class="relative overflow-x-auto p-5" id="game-table">
+    <div class="relative overflow-x-auto p-5" id="game-table" v-if="games.length > 0">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -40,6 +40,10 @@
         </tbody>
       </table>
     </div>
+
+    <vs-divider v-else>
+      Nenhum resgistro encontrado
+    </vs-divider>
 
     <NewQuestion
       :is-active="openNewQuestion" 

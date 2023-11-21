@@ -81,6 +81,9 @@
         }),
         methods: {
             closeModal() {
+                if (!this.gameName || !this.questions) {
+                    return this.resetData();
+                }
                 this.$vs.dialog({
                     type:'confirm',
                     color: 'danger',
