@@ -22,14 +22,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <tr 
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" 
+            :key="index" 
+            v-for="(game, index) in games"
+          >
             <td class="px-6 py-4">
-              Tuba
+              {{ game.name }}
             </td>
             <td class="px-6 py-4 select-none">
               <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.6em;"></i>
 
-              <i class="bi bi-trash cursor-pointer" style="color: #c00808; font-size:1.6em;" @click="deleteGame()"></i>
+              <i class="bi bi-trash cursor-pointer" style="color: #c00808; font-size:1.6em;" @click="confirmDelete(game)"></i>
             </td>
 
           </tr>
@@ -52,6 +56,8 @@
 </template>
 
 <script>
+import gameApi from '@/requests/game'
+
 import NewQuestion from '@/components/NewQuestion.vue'
 import GameSettings from '@/components/GameSettings.vue'
 
@@ -59,27 +65,56 @@ export default {
   data:()=>({
     openNewQuestion: false,
     openGameSettings: false,
+    games: []
   }),
   components: {
     NewQuestion,
     GameSettings
   },
   methods: {
-    deleteGame() {
+    confirmDelete(game) {
       this.$vs.dialog({
         type:'confirm',
         color: 'danger',
         title: `Atenção!`,
-        text: "Você tem certeza que deseja deletar o quiz",
-        // accept: () => this.$refs.fileInput.click(),
+        text: `Você tem certeza que deseja deletar o quiz ${game.name}`,
+        accept: () => this.deleteGame(game.id_game),
         acceptText: 'Deletar',
         cancelText: 'Cancelar',
+      })
+    },
+    async loadGames() {
+      await gameApi.getByUserId()
+      .then((response) => {
+        this.games = response.users
+      }) 
+    },
+    async deleteGame(id) {
+      await gameApi.delete(id)
+      .then(async (response) => {
+        this.$vs.notify({
+          color:'success',
+          title:'Sucesso',
+          text: response
+        })
+        await this.loadGames();
+      })
+      .catch((error) => {
+        console.log(error)
+        return this.$vs.notify({
+          color:'danger',
+          title:'Atenção',
+          text: 'Não foi possivel fazer deletar esse Quiz!'
+        })
       })
     },
     changeModalOrder() {
       this.openNewQuestion = !this.openNewQuestion
       this.openGameSettings = !this.openGameSettings
-    }
+    },
+  },
+  async mounted() {
+    await this.loadGames();
   }
 }
 </script>
