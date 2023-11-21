@@ -17,4 +17,13 @@ export default {
             '/queezy/api/game/'+ id
         )).data
     },
+
+    async createGame(data) {
+        const userId = JSON.parse(localStorage.getItem('userInfo')).id_user;
+        data.user_id = userId
+
+        return (await axios.post(
+            '/queezy-question-answer', data
+        )).data
+    }
 }

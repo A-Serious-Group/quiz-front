@@ -32,27 +32,25 @@
                 <vs-row>
                     <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3 questions-answer">
-                            <span :key="index" v-for="index in inputs.length">
+                            <span :key="index" v-for="(answer, index) in answers">
                                 <vs-input
-                                :label="'Resposta ' + (index)"
-                                v-model="inputs[index - 1]"
-                                type="text"
-                                :id="'input' + index"
-                                class="mt-4"
-                                style="width: 20em;"
-                                :class="index % 2 === 0 ? 'mr-6' : ''"
-                                color="#8a2253"
+                                    :label="'Resposta ' + (index + 1)"
+                                    v-model="answer.name"
+                                    class="mt-4"
+                                    style="width: 20em;"
+                                    :class="index % 2 === 0 ? 'mr-6' : ''"
+                                    color="#8a2253"
                                 />
                                 
-                                <i class="material-icons select-none pointer cursor-pointer" @click="removeInput(index)" style="position: relative; left: 12.1em; bottom: 1.5em;">
+                                <i class="material-icons select-none pointer cursor-pointer" @click="removeAnswers(index)" style="position: relative; left: 12.1em; bottom: 1.5em;">
                                     close
                                 </i>
                             </span>
                             
                             <vs-button
-                                v-if="inputs.length < 6" 
+                                v-if="answers.length < 6" 
                                 type="border"
-                                @click="inputs.push('')"
+                                @click="answers.push({name:'', correct: false})"
                                 style="width: 20em !important; height:3em !important; margin-top:2.5em;"
                                 color="#8a2253"
                             >
@@ -69,13 +67,38 @@
                 style="width: 41.5em !important; height:3em !important;"
                 color="#8a2253"
                 class="mt-2 mr-5"
-                :disabled="inputs.length < 2"
-                @click="configGame()"
+                :disabled="answers.length < 2"
+                @click="saveQuestion()"
                 >
                     Salvar
                 </vs-button>
             </div>
+
+            <vs-popup 
+                title="Escolha as respostas corretas" 
+                :active="openChooseCorrectQuestion"
+                @close="openChooseCorrectQuestion = false"
+            >
+                <div :key="index" v-for="(awnser, index) in answers">
+                    
+                    <vs-checkbox v-model="awnser.correct" color="#8a2253" class="mt-4 select-none">
+                        <span @click="awnser.correct = !awnser.correct" class="cursor-pointer select-none ml-1">
+                            {{ awnser.name }}
+                        </span>
+                    </vs-checkbox>
+                </div>
+
+                <vs-button
+                color="#8a2253"
+                class="mt-6"
+                @click="prepareData()"
+                >
+                    Salvar
+                </vs-button>
+            </vs-popup>
         </vs-popup>
+
+        
     </div>
 </template>
   
@@ -84,9 +107,13 @@
     name: 'NewQuestion',
     data:()=>({
         title: '',
-        inputs: [
-            ''
+        answers: [
+            {
+                name: '',
+                correct: false
+            }
         ],
+        openChooseCorrectQuestion: false
     }),
     props: {
         isActive: {
@@ -102,19 +129,69 @@
                 text:'Upload de arquivo feito com sucesso'
             })
         },
-        removeInput(index) {
-            this.inputs.splice(index -1, 1);
+        removeAnswers(index) {
+            this.answers.splice(index, 1);
         },
-        configGame() {
-            for (let index = 0; index < this.inputs.length; index++) {
+        saveQuestion() {
+            if (!this.title.trim()) {
+                return this.$vs.notify({
+                    color:'danger',
+                    title:'Atenção',
+                    text:'O Titulo da pergunta está vazio! preencha-o para continuar.'
+                });
+            }
+
+            for (let index = 0; index < this.answers.length; index++) {
                 
-                if (this.inputs[index].trim() === '') {
+                if (this.answers[index].name.trim() === '') {
                     return this.$vs.notify({
                         color:'danger',
                         title:'Atenção',
                         text:'Há respostas vazias; preencha-as para continuar.'
                     });
                 }
+            }
+
+            this.openChooseCorrectQuestion = true;
+        },
+        prepareData() {
+
+            const hasCorrectAnswer = this.answers.some(item => item.correct === true);
+
+            if (!hasCorrectAnswer) {
+                return this.$vs.notify({
+                    color:'#a6a519',
+                    title:'Atenção',
+                    text:'Selecione ao menos uma resposta correta!'
+                });
+            }
+
+            const formatedAnswers = Array.from(this.answers).map(item => {
+                return {
+                    name: item.name,
+                    correct: item.correct,
+                };
+            });
+
+            const question = {
+                title: this.title,
+                answers: formatedAnswers
+            }
+
+            this.openChooseCorrectQuestion = false
+            this.$emit('addQuestion', question)
+        }
+    },
+    watch : {
+        isActive(val) {
+            if (val) {
+                this.title = '';
+                this.answers = [
+                    {
+                        name: '',
+                        correct: false
+                    }
+                ];
             }
         }
     }
@@ -169,6 +246,7 @@
             width:850px !important;
         }
     }
+
 @media (max-width: 670px) {
     .question-filds .question-title {
         width:auto;

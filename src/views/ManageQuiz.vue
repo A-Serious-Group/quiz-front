@@ -45,12 +45,16 @@
       :is-active="openNewQuestion" 
       @isActiveFalse="openNewQuestion = false"
       @switchModal="changeModalOrder()"
+      @addQuestion="addQuestion"
     />
 
     <GameSettings
       :is-active="openGameSettings" 
-      @isActiveFalse="openGameSettings = false"
+      @isActiveFalse="closeGameSettings()"
       @NewQuestion="changeModalOrder()"
+      :questions="questions"
+      @removeQuestion="removeQuestion()"
+      @gameCreated="gameCreated()"
     />
   </div>
 </template>
@@ -65,7 +69,8 @@ export default {
   data:()=>({
     openNewQuestion: false,
     openGameSettings: false,
-    games: []
+    games: [],
+    questions: []
   }),
   components: {
     NewQuestion,
@@ -112,6 +117,21 @@ export default {
       this.openNewQuestion = !this.openNewQuestion
       this.openGameSettings = !this.openGameSettings
     },
+    addQuestion(newQuestion) {
+      this.questions.push(newQuestion)
+      this.changeModalOrder();
+    },
+    closeGameSettings() {
+      this.openGameSettings = false
+      this.questions = []
+    },
+    removeQuestion(index) {
+      this.questions.splice(index, 1);
+    },
+    async gameCreated() {
+      this.openGameSettings = false;
+      await this.loadGames();
+    }
   },
   async mounted() {
     await this.loadGames();
