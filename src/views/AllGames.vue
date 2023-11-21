@@ -13,9 +13,6 @@
       id="table-all-games"
       class="p-3"
     >
-    <template v-slot:header>
-      <h3>Games</h3>
-    </template>
     
     <template v-slot:thead>
       <vs-th sort-key="email">Nome do Quiz</vs-th>
@@ -30,7 +27,11 @@
         <vs-td :data="1">{{ 1 }}</vs-td>
         <vs-td :data="tr.users.name">{{ tr.users.name }}</vs-td>
         <vs-td :data="tr.id">
-          <i class="bi bi-play cursor-pointer" style="font-size:2em;"></i>
+          <i 
+          class="bi bi-play cursor-pointer" 
+          style="font-size:2em;" 
+          @click="$router.push('/play/' + tr.id_game)"
+          ></i>
         </vs-td>
       </vs-tr>
     </template>
@@ -42,7 +43,7 @@
 <script>
  
  import gameApi from '@/requests/game';
- 
+
   export default {
     name: 'AllGames',
     data:()=>({
