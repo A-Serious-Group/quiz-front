@@ -12,7 +12,15 @@
                 Configurações do jogo
             </vs-divider>
 
-            <vs-checkbox v-model="restartOnError" color="#8a2253">
+            <vs-input 
+                v-model="gameName"
+                class="pl-1 pb-2 game-name-input" 
+                label="Nome do Game" 
+                color="#8a2253" 
+                placeholder="Digite o nome do jogo"
+            />
+
+            <vs-checkbox v-model="restartOnError" color="#8a2253" class="mt-4">
                 <span @click="restartOnError = !restartOnError" class="cursor-pointer select-none">
                     Ao errar reiniciar o jogo
                 </span>
@@ -28,12 +36,21 @@
                 <i class="bi bi-plus-lg"></i> Nova Pergunta
             </vs-button>
 
-            <div class="flex items-center justify-between mt-6 p-3" style="border:1px solid #8a2253; border-radius:10px;">
-                <p class="mr-1" style="font-size:1.1em;">Nome da Pergunta</p>
+            <div 
+                class="flex items-center justify-between mt-6 p-3" 
+                style="border:1px solid #8a2253; border-radius:10px;"
+                v-for="(question, index) in questions"
+                :key="index"
+            >
+                <p class="mr-1" style="font-size:1.1em;">{{ question.title }}</p>
                 <span>
                     <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.3em;"></i>
                     
-                    <i class="bi bi-trash cursor-pointer ml-2" style="color: #c00808; font-size:1.3em;"></i>
+                    <i 
+                        class="bi bi-trash cursor-pointer ml-2" 
+                        style="color: #c00808; font-size:1.3em;"
+                        @click="$emit('removeQuestion', index)"
+                    ></i>
                 </span>
             </div>
         </div>
@@ -41,6 +58,8 @@
         <vs-button
             color="#8a2253"
             class="mt-7"
+            :disabled="questions.length <= 0 || ! this.gameName"
+            @click="saveGame"
         >
             Salvar
         </vs-button>
@@ -51,41 +70,73 @@
   
   </template>
   
-  <script>
+<script>
+    import gameApi from '@/requests/game';
+    export default {
+        name: 'ManageAccount',
 
-  export default {
-    name: 'ManageAccount',
-  
-
-    data:()=>({
-        restartOnError: false
-    }),
-    methods: {
-        closeModal() {
-            this.$vs.dialog({
-                type:'confirm',
-                color: 'danger',
-                title: `Deseja abandonar a criação?`,
-                text: "Você tem certeza que deseja abandonar a criação do quiz? os dados não serão salvos",
-                accept: () => this.$emit('isActiveFalse'),
-                acceptText: 'Sim',
-                cancelText: 'Cancelar',
-            })
-        }
-    },
-    props: {
-        isActive: {
-            type: Boolean,
-            required: true
+        data:()=>({
+            restartOnError: false,
+            gameName: '',
+        }),
+        methods: {
+            closeModal() {
+                this.$vs.dialog({
+                    type:'confirm',
+                    color: 'danger',
+                    title: `Deseja abandonar a criação?`,
+                    text: "Você tem certeza que deseja abandonar a criação do quiz? os dados não serão salvos",
+                    accept: () => this.resetData(),
+                    acceptText: 'Sim',
+                    cancelText: 'Cancelar',
+                })
+            },
+            resetData() {
+                this.gameName = '';
+                this.restartOnError = false;
+                this.$emit('isActiveFalse');
+            },
+            async saveGame() {
+                const questionsArray = JSON.parse(JSON.stringify(this.questions));
+                const data = {
+                    question: questionsArray,
+                    game_name: this.gameName,
+                    restartOnError: this.restartOnError
+                }
+                
+                await gameApi.createGame(data)
+                .then(() => {
+                    this.$vs.notify({
+                        color:'success',
+                        title:'Sucesso',
+                        text:'Game criado com Sucesso'
+                    })
+                    this.$emit('gameCreated');
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }
         },
-    },
-    
-  }
-  </script>
+        props: {
+            isActive: {
+                type: Boolean,
+                required: true
+            },
+            questions: {
+                type: Object,
+                required: true
+            }
+        },
+    }
+</script>
   
 <style lang="scss">
     .con-vs-dialog {
         z-index: 999999 !important;
+    }
+    .game-name-input input {
+        border-radius: 8px;
     }
 </style>
   
