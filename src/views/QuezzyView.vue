@@ -5,7 +5,12 @@
       </div>
 
       <div style="text-align: center;">
-        <vs-button color="#8a2253" class="fontt button-start" style="border-radius:15px; font-size:3em;">
+        <vs-button 
+          color="#8a2253" 
+          class="fontt button-start" 
+          style="border-radius:15px; font-size:3em;" 
+          @click="$router.push('/all-games')"
+        >
           Começar
         </vs-button>
       </div>
