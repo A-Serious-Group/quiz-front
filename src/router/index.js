@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ManageQuiz from '../views/ManageQuiz.vue'
 import AllGames from '../views/AllGames.vue'
 import QuezzyView from '../views/QuezzyView.vue'
+import PlayQuiz from '../views/PlayQuiz.vue'
 import NotFound from '../views/NotFound'
 
 
@@ -39,6 +40,14 @@ const routes = [
     component: AllGames,
     meta: {
       title: 'Todos os Games'
+    }
+  },
+  {
+    path: '/play/:gameId',
+    name: 'PlayQuiz',
+    component: PlayQuiz,
+    meta: {
+      title: 'Jogar'
     }
   },
   {

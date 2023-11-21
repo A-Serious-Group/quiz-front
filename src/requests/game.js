@@ -18,6 +18,12 @@ export default {
         )).data
     },
 
+    async getOne(id) {
+        return (await axios.get(
+            '/queezy/api/game/one/' + id
+        )).data
+    },
+
     async delete(id) {
         return (await axios.delete(
             '/queezy/api/game/'+ id
