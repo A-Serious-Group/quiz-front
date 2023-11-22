@@ -10,13 +10,11 @@
             </div>
 
             <div class="upload-custom mt-5">
-                <!-- <vs-upload
-                    text="Adicione uma imagem (opcional)"
-                    class="mt-0"
-                    limit="1" 
-                    action="https://jsonplaceholder.typicode.com/posts/" 
-                    @on-success="successUpload()"
-                /> -->
+                <!-- <img 
+                    :src="'../../../api/'+questions[currentQuestion].imagem" 
+                    alt=""
+                    v-if="questions[currentQuestion].imagem"
+                > -->
             </div>
 
             <vs-row class="mt-6">
