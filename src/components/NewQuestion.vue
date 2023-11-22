@@ -16,7 +16,7 @@
 
             <div class="question-filds">
                 <div class="flex items-center justify-center question-title">
-                    <vs-input label="Título" color="#8a2253" placeholder="Título da pergunta" v-model="title" style="width: 41.5em;"/>
+                    <vs-input label="Título" color="#8a2253" placeholder="Título da pergunta" v-model="question" style="width: 41.5em;"/>
                 </div>
 
                 <div class="upload-custom mt-5">
@@ -106,7 +106,7 @@
   export default {
     name: 'NewQuestion',
     data:()=>({
-        title: '',
+        question: '',
         answers: [
             {
                 name: '',
@@ -133,7 +133,7 @@
             this.answers.splice(index, 1);
         },
         saveQuestion() {
-            if (!this.title.trim()) {
+            if (!this.question.trim()) {
                 return this.$vs.notify({
                     color:'danger',
                     title:'Atenção',
@@ -174,7 +174,7 @@
             });
 
             const question = {
-                title: this.title,
+                question: this.question,
                 answers: formatedAnswers
             }
 
@@ -185,7 +185,7 @@
     watch : {
         isActive(val) {
             if (val) {
-                this.title = '';
+                this.question = '';
                 this.answers = [
                     {
                         name: '',

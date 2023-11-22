@@ -67,6 +67,7 @@
 
 <script>
 import gameApi from '@/requests/game'
+import questionApi from '@/requests/question'
 
 import NewQuestion from '@/components/NewQuestion.vue'
 import GameSettings from '@/components/GameSettings.vue'
@@ -77,7 +78,8 @@ export default {
     openGameSettings: false,
     games: [],
     questions: [],
-    isUpdate: false
+    isUpdate: false,
+    dataToUpdate: {}
   }),
   components: {
     NewQuestion,
@@ -95,8 +97,9 @@ export default {
         cancelText: 'Cancelar',
       })
     },
-    updateGame(game) {
+    async updateGame(game) {
       this.dataToUpdate = game;
+      this.questions = await this.setQuestions(game.id_game);
       this.isUpdate = true;
       this.openGameSettings = true;
     },
@@ -144,6 +147,9 @@ export default {
     async gameCreated() {
       this.openGameSettings = false;
       await this.loadGames();
+    },
+    async setQuestions(id) {
+      return await questionApi.getById(id)
     }
   },
   async mounted() {
