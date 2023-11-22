@@ -103,11 +103,15 @@ export default {
             })
         },
         selectAnswer(awnser) {
+            const totalQuestions = (this.questions.length);
+
             if (this.game.restartOnError && !awnser.answers_correct) {
                 this.endGameData = {
                     title: 'Você Perdeu',
                     color: 'red',
-                    text:  'Você Perdeu'
+                    text:  'Você Perdeu',
+                    totalQuestions: totalQuestions,
+                    correctAnswers: this.correctAnswers,
                 }
                 this.openEndGameModal = true;
                 return
@@ -117,8 +121,6 @@ export default {
             if (awnser.answers_correct) {
                 this.correctAnswers += 1;
             }
-
-            const totalQuestions = (this.questions.length);
 
             if (this.currentQuestion < (this.questions.length - 1)) {
 

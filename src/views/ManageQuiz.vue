@@ -31,7 +31,7 @@
               {{ game.name }}
             </td>
             <td class="px-6 py-4 select-none">
-              <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.6em;"></i>
+              <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.6em;" @click="updateGame(game)"></i>
 
               <i class="bi bi-trash cursor-pointer" style="color: #c00808; font-size:1.6em;" @click="confirmDelete(game)"></i>
             </td>
@@ -59,6 +59,8 @@
       :questions="questions"
       @removeQuestion="removeQuestion()"
       @gameCreated="gameCreated()"
+      :isUpdate="isUpdate"
+      :data="dataToUpdate"
     />
   </div>
 </template>
@@ -74,7 +76,8 @@ export default {
     openNewQuestion: false,
     openGameSettings: false,
     games: [],
-    questions: []
+    questions: [],
+    isUpdate: false
   }),
   components: {
     NewQuestion,
@@ -91,6 +94,11 @@ export default {
         acceptText: 'Deletar',
         cancelText: 'Cancelar',
       })
+    },
+    updateGame(game) {
+      this.dataToUpdate = game;
+      this.isUpdate = true;
+      this.openGameSettings = true;
     },
     async loadGames() {
       await gameApi.getByUserId()
@@ -126,8 +134,9 @@ export default {
       this.changeModalOrder();
     },
     closeGameSettings() {
-      this.openGameSettings = false
-      this.questions = []
+      this.openGameSettings = false;
+      this.isUpdate = false;
+      this.questions = [];
     },
     removeQuestion(index) {
       this.questions.splice(index, 1);

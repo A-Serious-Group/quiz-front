@@ -129,6 +129,14 @@
             questions: {
                 type: Object,
                 required: true
+            },
+            dataToUpdate: {
+                type: Object,
+                required: false
+            },
+            isUpdate: {
+                type: Boolean,
+                required: true
             }
         },
     }
