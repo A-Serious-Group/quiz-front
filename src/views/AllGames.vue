@@ -56,7 +56,12 @@
       }
     },
     async mounted() {
+      this.$vs.loading({
+        type:'radius',
+        color: '#8a2253'
+      })
       await this.loadGames();
+      this.$vs.loading.close();
     }
   }
 </script>

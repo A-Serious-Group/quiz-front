@@ -104,9 +104,14 @@ export default {
       this.openGameSettings = true;
     },
     async loadGames() {
+      this.$vs.loading({
+        type:'radius',
+        color: '#8a2253'
+      })
       await gameApi.getByUserId()
       .then((response) => {
         this.games = response.users
+        this.$vs.loading.close();
       }) 
     },
     async deleteGame(id) {

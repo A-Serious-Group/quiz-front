@@ -87,6 +87,10 @@ export default {
     }),
     methods: {
         async setGame() {
+            this.$vs.loading({
+                type:'radius',
+                color: '#8a2253'
+            })
             this.currentQuestion = 0;
 
             const gameId = this.$route.params.gameId
@@ -98,6 +102,7 @@ export default {
             await gameApi.getOne(gameId)
             .then((response) => {
                 this.game = response.game
+                this.$vs.loading.close();
             })
         },
         selectAnswer(awnser) {
