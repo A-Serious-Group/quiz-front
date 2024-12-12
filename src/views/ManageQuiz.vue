@@ -31,7 +31,7 @@
               {{ game.name }}
             </td>
             <td class="px-6 py-4 select-none">
-              <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.6em;"></i>
+              <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.6em;" @click="updateGame(game)"></i>
 
               <i class="bi bi-trash cursor-pointer" style="color: #c00808; font-size:1.6em;" @click="confirmDelete(game)"></i>
             </td>
@@ -59,12 +59,15 @@
       :questions="questions"
       @removeQuestion="removeQuestion()"
       @gameCreated="gameCreated()"
+      :isUpdate="isUpdate"
+      :data="dataToUpdate"
     />
   </div>
 </template>
 
 <script>
 import gameApi from '@/requests/game'
+import questionApi from '@/requests/question'
 
 import NewQuestion from '@/components/NewQuestion.vue'
 import GameSettings from '@/components/GameSettings.vue'
@@ -74,7 +77,9 @@ export default {
     openNewQuestion: false,
     openGameSettings: false,
     games: [],
-    questions: []
+    questions: [],
+    isUpdate: false,
+    dataToUpdate: {}
   }),
   components: {
     NewQuestion,
@@ -92,10 +97,21 @@ export default {
         cancelText: 'Cancelar',
       })
     },
+    async updateGame(game) {
+      this.dataToUpdate = game;
+      this.questions = await this.setQuestions(game.id_game);
+      this.isUpdate = true;
+      this.openGameSettings = true;
+    },
     async loadGames() {
+      this.$vs.loading({
+        type:'radius',
+        color: '#8a2253'
+      })
       await gameApi.getByUserId()
       .then((response) => {
         this.games = response.users
+        this.$vs.loading.close();
       }) 
     },
     async deleteGame(id) {
@@ -126,8 +142,9 @@ export default {
       this.changeModalOrder();
     },
     closeGameSettings() {
-      this.openGameSettings = false
-      this.questions = []
+      this.openGameSettings = false;
+      this.isUpdate = false;
+      this.questions = [];
     },
     removeQuestion(index) {
       this.questions.splice(index, 1);
@@ -135,6 +152,9 @@ export default {
     async gameCreated() {
       this.openGameSettings = false;
       await this.loadGames();
+    },
+    async setQuestions(id) {
+      return await questionApi.getById(id)
     }
   },
   async mounted() {

@@ -42,11 +42,11 @@
                 v-for="(question, index) in questions"
                 :key="index"
             >
-                <p class="mr-1" style="font-size:1.1em;">{{ question.title }}</p>
+                <p class="mr-1" style="font-size:1.1em;">{{ question.question }}</p>
                 <span>
                     <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.3em;"></i>
                     
-                    <i 
+                    <i
                         class="bi bi-trash cursor-pointer ml-2" 
                         style="color: #c00808; font-size:1.3em;"
                         @click="$emit('removeQuestion', index)"
@@ -119,7 +119,7 @@
                 .catch((error) => {
                     console.log(error)
                 })
-            }
+            },
         },
         props: {
             isActive: {
@@ -129,8 +129,24 @@
             questions: {
                 type: Object,
                 required: true
+            },
+            data: {
+                type: Object,
+                required: false
+            },
+            isUpdate: {
+                type: Boolean,
+                required: true
             }
         },
+        watch: {
+            isActive(val) {
+                if (val && this.isUpdate) {
+                    this.gameName = this.data.name
+                    this.restartOnError = this.data.restartOnError
+                }
+            }
+        }
     }
 </script>
   
