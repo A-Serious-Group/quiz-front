@@ -10,13 +10,11 @@
             </div>
 
             <div class="upload-custom mt-5">
-                <!-- <vs-upload
-                    text="Adicione uma imagem (opcional)"
-                    class="mt-0"
-                    limit="1" 
-                    action="https://jsonplaceholder.typicode.com/posts/" 
-                    @on-success="successUpload()"
-                /> -->
+                <!-- <img 
+                    :src="'../../../api/'+questions[currentQuestion].imagem" 
+                    alt=""
+                    v-if="questions[currentQuestion].imagem"
+                > -->
             </div>
 
             <vs-row class="mt-6">
@@ -89,6 +87,10 @@ export default {
     }),
     methods: {
         async setGame() {
+            this.$vs.loading({
+                type:'radius',
+                color: '#8a2253'
+            })
             this.currentQuestion = 0;
 
             const gameId = this.$route.params.gameId
@@ -100,14 +102,19 @@ export default {
             await gameApi.getOne(gameId)
             .then((response) => {
                 this.game = response.game
+                this.$vs.loading.close();
             })
         },
         selectAnswer(awnser) {
+            const totalQuestions = (this.questions.length);
+
             if (this.game.restartOnError && !awnser.answers_correct) {
                 this.endGameData = {
                     title: 'Você Perdeu',
                     color: 'red',
-                    text:  'Você Perdeu'
+                    text:  'Você Perdeu',
+                    totalQuestions: totalQuestions,
+                    correctAnswers: this.correctAnswers,
                 }
                 this.openEndGameModal = true;
                 return
@@ -117,8 +124,6 @@ export default {
             if (awnser.answers_correct) {
                 this.correctAnswers += 1;
             }
-
-            const totalQuestions = (this.questions.length);
 
             if (this.currentQuestion < (this.questions.length - 1)) {
 

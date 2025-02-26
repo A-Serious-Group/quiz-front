@@ -24,7 +24,7 @@
     <template v-slot:default="{ data }">
       <vs-tr :key="indextr" v-for="(tr, indextr) in data">
         <vs-td :data="tr.name">{{ tr.name }}</vs-td>
-        <vs-td :data="1">{{ 1 }}</vs-td>
+        <vs-td :data="tr.question.length">{{ tr.question.length }}</vs-td>
         <vs-td :data="tr.users.name">{{ tr.users.name }}</vs-td>
         <vs-td :data="tr.id">
           <i 
@@ -56,7 +56,12 @@
       }
     },
     async mounted() {
+      this.$vs.loading({
+        type:'radius',
+        color: '#8a2253'
+      })
       await this.loadGames();
+      this.$vs.loading.close();
     }
   }
 </script>

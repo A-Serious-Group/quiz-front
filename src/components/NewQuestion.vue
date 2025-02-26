@@ -16,16 +16,20 @@
 
             <div class="question-filds">
                 <div class="flex items-center justify-center question-title">
-                    <vs-input label="Título" color="#8a2253" placeholder="Título da pergunta" v-model="title" style="width: 41.5em;"/>
+                    <vs-input label="Título" color="#8a2253" placeholder="Título da pergunta" v-model="question" style="width: 41.5em;"/>
                 </div>
 
                 <div class="upload-custom mt-5">
                     <vs-upload
+                        fileName="file"
                         text="Adicione uma imagem (opcional)"
                         class="mt-0"
                         limit="1" 
-                        action="https://jsonplaceholder.typicode.com/posts/" 
-                        @on-success="successUpload()"
+                        @on-success="successUpload"
+                        :action="uploadApiUrl"
+                        @on-error="errorUpload()"
+                        @on-delete="deleteImage()"
+                        automatic
                     />
                 </div>
 
@@ -106,14 +110,15 @@
   export default {
     name: 'NewQuestion',
     data:()=>({
-        title: '',
+        question: '',
         answers: [
             {
                 name: '',
                 correct: false
             }
         ],
-        openChooseCorrectQuestion: false
+        openChooseCorrectQuestion: false,
+        imageSrc: ''
     }),
     props: {
         isActive: {
@@ -122,18 +127,19 @@
         },
     },
     methods: {
-        successUpload(){
+        successUpload(response){
             this.$vs.notify({
                 color:'success',
                 title:'Sucesso',
                 text:'Upload de arquivo feito com sucesso'
             })
+            this.imageSrc = JSON.parse(response.target.response).pathCorrect;
         },
         removeAnswers(index) {
             this.answers.splice(index, 1);
         },
         saveQuestion() {
-            if (!this.title.trim()) {
+            if (!this.question.trim()) {
                 return this.$vs.notify({
                     color:'danger',
                     title:'Atenção',
@@ -174,18 +180,24 @@
             });
 
             const question = {
-                title: this.title,
-                answers: formatedAnswers
+                question: this.question,
+                answers: formatedAnswers,
+                image:  this.imageSrc
             }
 
+            console.log('QUESTION, ', question)
             this.openChooseCorrectQuestion = false
             this.$emit('addQuestion', question)
+        },
+        deleteImage() {
+            this.imageSrc = ''
         }
     },
     watch : {
         isActive(val) {
             if (val) {
-                this.title = '';
+                this.question = '';
+                this.imageSrc = ''
                 this.answers = [
                     {
                         name: '',
@@ -193,6 +205,11 @@
                     }
                 ];
             }
+        }
+    },
+    computed: {
+        uploadApiUrl() {
+            return process.env.VUE_APP_API_BASE_URL + '/queezy/upload-image'
         }
     }
   }
@@ -245,6 +262,9 @@
             
             width:850px !important;
         }
+    }
+    .view-upload {
+        z-index: 99999 !important;
     }
 
 @media (max-width: 670px) {
