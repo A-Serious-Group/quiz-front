@@ -209,7 +209,7 @@
     },
     computed: {
         uploadApiUrl() {
-            return process.env.VUE_APP_API_BASE_URL + '/queezy/upload-image'
+            return process.env.VUE_APP_API_BASE_URL + '/queezy/api/upload-file/question';
         }
     }
   }
