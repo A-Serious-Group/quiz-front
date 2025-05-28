@@ -10,11 +10,10 @@
             </div>
 
             <div class="upload-custom mt-5">
-                <!-- <img 
-                    :src="'../../../api/'+questions[currentQuestion].imagem" 
-                    alt=""
+                <img 
+                    :src="questions[currentQuestion].imagem" 
                     v-if="questions[currentQuestion].imagem"
-                > -->
+                >
             </div>
 
             <vs-row class="mt-6">
@@ -168,5 +167,10 @@ export default {
 </script>
   
 <style lang="scss">
-  
+    .upload-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* ajuste conforme necessário */
+    }
 </style>
