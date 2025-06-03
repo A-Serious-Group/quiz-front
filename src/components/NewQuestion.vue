@@ -133,7 +133,7 @@
                 title:'Sucesso',
                 text:'Upload de arquivo feito com sucesso'
             })
-            this.imageSrc = JSON.parse(response.target.response).pathCorrect;
+            this.imageSrc = JSON.parse(response.target.response).url;
         },
         removeAnswers(index) {
             this.answers.splice(index, 1);
@@ -185,7 +185,6 @@
                 image:  this.imageSrc
             }
 
-            console.log('QUESTION, ', question)
             this.openChooseCorrectQuestion = false
             this.$emit('addQuestion', question)
         },
@@ -209,7 +208,7 @@
     },
     computed: {
         uploadApiUrl() {
-            return process.env.VUE_APP_API_BASE_URL + '/queezy/upload-image'
+            return process.env.VUE_APP_API_BASE_URL + '/queezy/api/upload-file/question'
         }
     }
   }

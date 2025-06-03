@@ -101,6 +101,7 @@
             },
             async saveGame() {
                 const questionsArray = JSON.parse(JSON.stringify(this.questions));
+                console.log('questionsArray', questionsArray)
                 const data = {
                     question: questionsArray,
                     game_name: this.gameName,
