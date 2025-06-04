@@ -13,6 +13,7 @@
                 <img 
                     :src="questions[currentQuestion].imagem" 
                     v-if="questions[currentQuestion].imagem"
+                    class="quiz-image"
                 >
             </div>
 
@@ -172,5 +173,16 @@ export default {
     justify-content: center;
     align-items: center;
     height: 300px; /* ajuste conforme necessário */
+    }
+    .quiz-image {
+        max-width: 350px;
+        max-height: 250px;
+        width: auto;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
     }
 </style>
