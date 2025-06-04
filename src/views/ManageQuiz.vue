@@ -57,7 +57,7 @@
       @isActiveFalse="closeGameSettings()"
       @NewQuestion="changeModalOrder()"
       :questions="questions"
-      @removeQuestion="removeQuestion()"
+      @removeQuestion="removeQuestion"
       @gameCreated="gameCreated()"
       :isUpdate="isUpdate"
       :data="dataToUpdate"
