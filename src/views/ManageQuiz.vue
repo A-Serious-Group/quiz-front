@@ -46,10 +46,12 @@
     </vs-divider>
 
     <NewQuestion
+      ref="newQuestion"
       :is-active="openNewQuestion" 
       @isActiveFalse="openNewQuestion = false"
       @switchModal="changeModalOrder()"
       @addQuestion="addQuestion"
+      @updateQuestion="updateQuestion"
     />
 
     <GameSettings
@@ -61,6 +63,7 @@
       @gameCreated="gameCreated()"
       :isUpdate="isUpdate"
       :data="dataToUpdate"
+      @editQuestion="editQuestion"
     />
   </div>
 </template>
@@ -155,6 +158,17 @@ export default {
     },
     async setQuestions(id) {
       return await questionApi.getById(id)
+    },
+    editQuestion({ question, index }) {
+      this.openNewQuestion = true;
+      this.openGameSettings = false;
+      setTimeout(() => {
+        this.$refs.newQuestion.editQuestion(question, index);
+      }, 500);
+    },
+    updateQuestion({ question, index }) {
+      this.questions[index] = question;
+      this.changeModalOrder();
     }
   },
   async mounted() {

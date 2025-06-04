@@ -42,11 +42,15 @@
                 v-for="(question, index) in questions"
                 :key="index"
             >
-                <p class="mr-1" style="font-size:1.1em;">{{ question.question }}</p>
+                <div class="flex items-center">
+                    <p class="mr-1" style="font-size:1.1em;">{{ question.question }}</p>
+                    <img v-if="question.image || question.imagem" :src="question.image || question.imagem" class="question-image" />
+                </div>
                 <span>
                     <i 
                         class="bi bi-pencil-square mr-2 cursor-pointer" 
                         style="color: #1f74ff; font-size:1.3em;"
+                        @click="$emit('editQuestion', { question, index })"
                     />
                     
                     <i
@@ -187,6 +191,13 @@
     }
     .game-name-input input {
         border-radius: 8px;
+    }
+    .question-image {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-left: 10px;
     }
 </style>
   
