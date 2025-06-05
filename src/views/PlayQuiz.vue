@@ -19,11 +19,11 @@
 
             <vs-row class="mt-6">
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3 questions-answer">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-3 questions-answer">
                         <span class="mt-5" :key="index" v-for="(answer, index) in questions[currentQuestion].answer_fk">
                             <vs-button 
                                 class="mt-2 h-full" 
-                                style="width: 20em;" 
+                                style="width: 15em;" 
                                 color="#8a2253" 
                                 @click="selectAnswer(answer)"
                             >
