@@ -42,15 +42,22 @@
                 v-for="(question, index) in questions"
                 :key="index"
             >
-                <p class="mr-1" style="font-size:1.1em;">{{ question.question }}</p>
+                <div class="flex items-center">
+                    <p class="mr-1" style="font-size:1.1em;">{{ question.question }}</p>
+                    <img v-if="question.image || question.imagem" :src="question.image || question.imagem" class="question-image" />
+                </div>
                 <span>
-                    <i class="bi bi-pencil-square mr-2 cursor-pointer" style="color: #1f74ff; font-size:1.3em;"></i>
+                    <i 
+                        class="bi bi-pencil-square mr-2 cursor-pointer" 
+                        style="color: #1f74ff; font-size:1.3em;"
+                        @click="$emit('editQuestion', { question, index })"
+                    />
                     
                     <i
                         class="bi bi-trash cursor-pointer ml-2" 
                         style="color: #c00808; font-size:1.3em;"
                         @click="$emit('removeQuestion', index)"
-                    ></i>
+                    />
                 </span>
             </div>
         </div>
@@ -78,6 +85,7 @@
         data:()=>({
             restartOnError: false,
             gameName: '',
+            gameId: null,
         }),
         methods: {
             closeModal() {
@@ -101,25 +109,50 @@
             },
             async saveGame() {
                 const questionsArray = JSON.parse(JSON.stringify(this.questions));
-                console.log('questionsArray', questionsArray)
                 const data = {
                     question: questionsArray,
                     game_name: this.gameName,
                     restartOnError: this.restartOnError
                 }
-                
-                await gameApi.createGame(data)
-                .then(() => {
-                    this.$vs.notify({
-                        color:'success',
-                        title:'Sucesso',
-                        text:'Game criado com Sucesso'
+
+                if (this.isUpdate) {
+                    data.id_game = this.gameId;
+                    await gameApi.updateGame(data)
+                    .then(() => {
+                        this.$vs.notify({
+                            color:'success',
+                            title:'Sucesso',
+                            text:'Game atualizado com Sucesso'
+                        })
+                        this.$emit('gameCreated');
                     })
-                    this.$emit('gameCreated');
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+                    .catch((error) => {
+                        console.log(error)
+                        this.$vs.notify({
+                            color:'danger',
+                            title:'Erro',
+                            text:'Não foi possível atualizar o game'
+                        })
+                    })
+                } else {
+                    await gameApi.createGame(data)
+                    .then(() => {
+                        this.$vs.notify({
+                            color:'success',
+                            title:'Sucesso',
+                            text:'Game criado com Sucesso'
+                        })
+                        this.$emit('gameCreated');
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        this.$vs.notify({
+                            color:'danger',
+                            title:'Erro',
+                            text:'Não foi possível criar o game'
+                        })
+                    })
+                }
             },
         },
         props: {
@@ -145,6 +178,7 @@
                 if (val && this.isUpdate) {
                     this.gameName = this.data.name
                     this.restartOnError = this.data.restartOnError
+                    this.gameId = this.data.id_game
                 }
             }
         }
@@ -157,6 +191,13 @@
     }
     .game-name-input input {
         border-radius: 8px;
+    }
+    .question-image {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-left: 10px;
     }
 </style>
   
