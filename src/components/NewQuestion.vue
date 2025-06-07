@@ -34,7 +34,7 @@
                         v-else
                         fileName="file"
                         text="Adicione uma imagem (opcional)"
-                        class="mt-0"
+                        class="mt-0 upload-custom"
                         limit="1" 
                         @on-success="successUpload"
                         :action="uploadApiUrl"
@@ -260,6 +260,13 @@
             display: flex;
             justify-content: center;
             margin-bottom: 1rem;
+
+            .upload-custom {
+                color: white !important;
+                .btn-upload-all {
+                    color: white !important;
+                }
+            }
 
             .image-preview-container {
                 position: relative;

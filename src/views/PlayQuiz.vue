@@ -47,6 +47,7 @@
     import questionApi from '@/requests/question'
     import gameApi from '@/requests/game'
 
+
     import EndGame from '@/components/EndGame.vue';
 
 export default {
@@ -83,6 +84,7 @@ export default {
             text: '',
             totalQuestions: 0,
             correctAnswers: 0,
+            image: ''
         }
     }),
     methods: {
@@ -111,10 +113,11 @@ export default {
             if (this.game.restartOnError && !awnser.answers_correct) {
                 this.endGameData = {
                     title: 'Você Perdeu',
-                    color: 'red',
+                    color: '#ff999a',
                     text:  'Você Perdeu',
                     totalQuestions: totalQuestions,
                     correctAnswers: this.correctAnswers,
+                    image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254098/rp159hawsnzkzkzzuhzc.png"
                 }
                 this.openEndGameModal = true;
                 return
@@ -130,31 +133,36 @@ export default {
                 this.currentQuestion += 1
             }
             else {
+                console.log(this.correctAnswers)
+                console.log('totalQuestions', totalQuestions)
                 if ((totalQuestions) === this.correctAnswers) {
                     this.endGameData = {
                         title: 'Você Ganhou',
-                        color: 'green',
+                        color: '#b5ffb8',
                         text:  'Parabéns Você Ganhou!',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254167/pjr79mnzll11to6v3y0e.png"
                     }
                 }
                 else if (this.correctAnswers >= (totalQuestions / 2) ) {
                     this.endGameData = {
                         title: 'Quase lá',
-                        color: 'yellow',
+                        color: '#fbff99',
                         text:  'Você acertou mais da metade das perguntas!',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
+                        image: 	"https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254188/jrbfod4nsrvt551flk3q.png"
                     }
                 }
                 else {
                     this.endGameData = {
                         title: 'Você perdeu',
-                        color: 'red',
+                        color: '#ff999a',
                         text: 'Você perdeu! tente novamente!',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254098/rp159hawsnzkzkzzuhzc.png"
                     }
                 }
                 this.openEndGameModal = true;

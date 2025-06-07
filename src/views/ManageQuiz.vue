@@ -42,7 +42,7 @@
     </div>
 
     <vs-divider v-else>
-      Nenhum resgistro encontrado
+      Nenhum registro encontrado
     </vs-divider>
 
     <NewQuestion

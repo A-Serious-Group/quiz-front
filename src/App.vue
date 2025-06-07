@@ -51,7 +51,7 @@ export default {
   }
 
   .fontt {
-    font-family: 'OwnWritten', sans-serif;
+    font-family: "Berlin Sans FB", "Montserrat", Helvetica, Arial, sans-serif !important;
     font-weight: 400
   }
 

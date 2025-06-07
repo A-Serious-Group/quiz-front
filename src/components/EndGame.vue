@@ -7,10 +7,12 @@
       button-close-hidden
       :background-color-popup="data.color"
       >
-       <div class="flex items-center justify-center" style="font-size: 2em;">
-            <p>{{ data.text }}</p>
+
+        <div class="flex items-center justify-center" style="font-size: 2em;">
+            <img :src="data.image" class="endgame-image" />
         </div>
-       <div class="flex items-center justify-center" style="font-size: 2em; height:8em;">
+        
+        <div class="flex items-center justify-center" style="font-size: 2em; ">
             <p>Você acertou um total de {{ data.correctAnswers }} de {{ data.totalQuestions }} perguntas</p>
         </div>
         
@@ -56,5 +58,11 @@
 </script>
 
 <style>
-
+  .endgame-image {
+    width: 60%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 </style>
