@@ -13,16 +13,28 @@
         </div>
         
         <div class="flex items-center justify-center" style="font-size: 2em; ">
-            <p>Você acertou um total de {{ data.correctAnswers }} de {{ data.totalQuestions }} perguntas</p>
+          <p class="custom-font" :style="{ color: data.textColor }">
+            Você acertou um total de {{ data.correctAnswers }} de {{ data.totalQuestions }} perguntas
+          </p>
         </div>
         
         <div class="flex flex-col items-center justify-center" style="height: 15em;">
             <div class="mb-3 mx-auto">
-              <vs-button color="#8a2253" class="w-full" @click="tryAgain()">Tentar Novamente</vs-button>
+              <vs-button 
+                color="#8a2253" 
+                class="w-full" 
+                style="border-radius: 12px; font-weight: 800;"
+                @click="tryAgain()">
+                  Jogar Novamente
+              </vs-button>
             </div>
           
             <div class="mx-auto">
-              <vs-button color="#8a2253" @click="$router.push('/all-games')">
+              <vs-button 
+                color="#8a2253"
+                @click="$router.push('/all-games')"
+                style="border-radius: 12px; font-weight: 800;"
+              >
                 Selecionar Quiz
               </vs-button>
             </div>
@@ -59,7 +71,7 @@
 
 <style>
   .endgame-image {
-    width: 60%;
+    width: 45%;
     height: auto;
     display: block;
     margin-left: auto;

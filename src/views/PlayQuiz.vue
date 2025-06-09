@@ -82,6 +82,7 @@ export default {
             title: '',
             color: '',
             text: '',
+            textColor: '',
             totalQuestions: 0,
             correctAnswers: 0,
             image: ''
@@ -115,9 +116,10 @@ export default {
                     title: 'Você Perdeu',
                     color: '#ff999a',
                     text:  'Você Perdeu',
+                    textColor: '#7a0001',
                     totalQuestions: totalQuestions,
                     correctAnswers: this.correctAnswers,
-                    image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254098/rp159hawsnzkzkzzuhzc.png"
+                    image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494617/jcxtuvernxoutdf39nfj.png"
                 }
                 this.openEndGameModal = true;
                 return
@@ -133,26 +135,26 @@ export default {
                 this.currentQuestion += 1
             }
             else {
-                console.log(this.correctAnswers)
-                console.log('totalQuestions', totalQuestions)
                 if ((totalQuestions) === this.correctAnswers) {
                     this.endGameData = {
                         title: 'Você Ganhou',
                         color: '#b5ffb8',
                         text:  'Parabéns Você Ganhou!',
+                        textColor: '#007811',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
-                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254167/pjr79mnzll11to6v3y0e.png"
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494573/mkf8m6arsa0ohoisqd1v.png"
                     }
                 }
                 else if (this.correctAnswers >= (totalQuestions / 2) ) {
                     this.endGameData = {
                         title: 'Quase lá',
                         color: '#fbff99',
+                        textColor: '#c55c00',
                         text:  'Você acertou mais da metade das perguntas!',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
-                        image: 	"https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254188/jrbfod4nsrvt551flk3q.png"
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494525/fvxfayhpx8qukk2glhdb.png"
                     }
                 }
                 else {
@@ -160,9 +162,10 @@ export default {
                         title: 'Você perdeu',
                         color: '#ff999a',
                         text: 'Você perdeu! tente novamente!',
+                        textColor: '#7a0001',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
-                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749254098/rp159hawsnzkzkzzuhzc.png"
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494617/jcxtuvernxoutdf39nfj.png"
                     }
                 }
                 this.openEndGameModal = true;

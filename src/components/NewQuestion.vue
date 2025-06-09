@@ -69,7 +69,7 @@
                                 style="width: 20em !important; height:3em !important; margin-top:2.5em;"
                                 color="#8a2253"
                             >
-                                <i class="bi bi-plus-lg"></i> Adicoinar resposta
+                                <i class="bi bi-plus-lg"></i> Adicionar resposta
                             </vs-button>
                         </div>
                     </vs-col>
@@ -180,10 +180,8 @@
                 name: answer.answers,
                 correct: answer.answers_correct
             }));
-            console.log('question', question)
             this.imageSrc = question.imagem || '';
             this.editingIndex = index;
-            console.log('this.editingIndex', this.editingIndex)
             this.$forceUpdate();
         },
         prepareData() {
