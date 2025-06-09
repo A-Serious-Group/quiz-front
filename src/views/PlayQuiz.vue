@@ -13,16 +13,17 @@
                 <img 
                     :src="questions[currentQuestion].imagem" 
                     v-if="questions[currentQuestion].imagem"
+                    class="quiz-image"
                 >
             </div>
 
             <vs-row class="mt-6">
                 <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3 questions-answer">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-3 questions-answer">
                         <span class="mt-5" :key="index" v-for="(answer, index) in questions[currentQuestion].answer_fk">
                             <vs-button 
                                 class="mt-2 h-full" 
-                                style="width: 20em;" 
+                                style="width: 15em;" 
                                 color="#8a2253" 
                                 @click="selectAnswer(answer)"
                             >
@@ -45,6 +46,7 @@
 <script>
     import questionApi from '@/requests/question'
     import gameApi from '@/requests/game'
+
 
     import EndGame from '@/components/EndGame.vue';
 
@@ -80,8 +82,10 @@ export default {
             title: '',
             color: '',
             text: '',
+            textColor: '',
             totalQuestions: 0,
             correctAnswers: 0,
+            image: ''
         }
     }),
     methods: {
@@ -110,10 +114,12 @@ export default {
             if (this.game.restartOnError && !awnser.answers_correct) {
                 this.endGameData = {
                     title: 'Você Perdeu',
-                    color: 'red',
+                    color: '#ff999a',
                     text:  'Você Perdeu',
+                    textColor: '#7a0001',
                     totalQuestions: totalQuestions,
                     correctAnswers: this.correctAnswers,
+                    image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494617/jcxtuvernxoutdf39nfj.png"
                 }
                 this.openEndGameModal = true;
                 return
@@ -132,28 +138,34 @@ export default {
                 if ((totalQuestions) === this.correctAnswers) {
                     this.endGameData = {
                         title: 'Você Ganhou',
-                        color: 'green',
+                        color: '#b5ffb8',
                         text:  'Parabéns Você Ganhou!',
+                        textColor: '#007811',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494573/mkf8m6arsa0ohoisqd1v.png"
                     }
                 }
                 else if (this.correctAnswers >= (totalQuestions / 2) ) {
                     this.endGameData = {
                         title: 'Quase lá',
-                        color: 'yellow',
+                        color: '#fbff99',
+                        textColor: '#c55c00',
                         text:  'Você acertou mais da metade das perguntas!',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494525/fvxfayhpx8qukk2glhdb.png"
                     }
                 }
                 else {
                     this.endGameData = {
                         title: 'Você perdeu',
-                        color: 'red',
+                        color: '#ff999a',
                         text: 'Você perdeu! tente novamente!',
+                        textColor: '#7a0001',
                         totalQuestions: totalQuestions,
                         correctAnswers: this.correctAnswers,
+                        image: "https://res.cloudinary.com/dcaufvn3n/image/upload/v1749494617/jcxtuvernxoutdf39nfj.png"
                     }
                 }
                 this.openEndGameModal = true;
@@ -172,5 +184,16 @@ export default {
     justify-content: center;
     align-items: center;
     height: 300px; /* ajuste conforme necessário */
+    }
+    .quiz-image {
+        max-width: 350px;
+        max-height: 250px;
+        width: auto;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
     }
 </style>

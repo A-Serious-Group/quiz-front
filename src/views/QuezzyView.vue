@@ -51,6 +51,10 @@
   .button-start {
     width: 18em;
   }
+
+  .fontt {
+    font-family: "Berlin Sans FB", "Montserrat", Helvetica, Arial, sans-serif !important;
+  }
   
   @media (max-width: 670px) {
     .button-start {

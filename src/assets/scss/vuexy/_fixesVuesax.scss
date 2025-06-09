@@ -60,6 +60,10 @@
       }
     }
   
+    span, .vs-button--text {
+        font-family: "Berlin Sans FB", "Montserrat", Helvetica, Arial, sans-serif !important;
+    }
+  
     &:not(.vs-radius):not(.includeIconOnly):not(.small):not(.large) {
       padding: .75rem 2rem;
   

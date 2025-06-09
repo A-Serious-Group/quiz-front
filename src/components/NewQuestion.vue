@@ -1,11 +1,12 @@
 <template lang="html">
     <div>
         <vs-popup 
-            title="Nova Pergunta" 
+            :title="editingIndex !== null ? 'Editar Pergunta' : 'Nova Pergunta'" 
             :active="isActive" 
             button-close-hidden
             id="popup-new-question"
         >
+
         <!-- <h1 style="font-size: 3em;" class="p-5 pb-3 fontt">Criar novo jogo</h1> -->
 
             <i 
@@ -20,10 +21,20 @@
                 </div>
 
                 <div class="upload-custom mt-5">
+                    <div v-if="imageSrc" class="image-preview-container">
+                        <img :src="imageSrc" class="preview-image" />
+                        <i 
+                            class="material-icons delete-image-icon" 
+                            @click="deleteImage()"
+                        >
+                            close
+                        </i>
+                    </div>
                     <vs-upload
+                        v-else
                         fileName="file"
                         text="Adicione uma imagem (opcional)"
-                        class="mt-0"
+                        class="mt-0 upload-custom"
                         limit="1" 
                         @on-success="successUpload"
                         :action="uploadApiUrl"
@@ -58,7 +69,7 @@
                                 style="width: 20em !important; height:3em !important; margin-top:2.5em;"
                                 color="#8a2253"
                             >
-                                <i class="bi bi-plus-lg"></i> Adicoinar resposta
+                                <i class="bi bi-plus-lg"></i> Adicionar resposta
                             </vs-button>
                         </div>
                     </vs-col>
@@ -118,7 +129,8 @@
             }
         ],
         openChooseCorrectQuestion: false,
-        imageSrc: ''
+        imageSrc: '',
+        editingIndex: null
     }),
     props: {
         isActive: {
@@ -160,8 +172,19 @@
 
             this.openChooseCorrectQuestion = true;
         },
+        editQuestion(question, index) {
+            console.log(question)
+            console.log(index)
+            this.question = question.question;
+            this.answers = question.answer_fk.map(answer => ({
+                name: answer.answers,
+                correct: answer.answers_correct
+            }));
+            this.imageSrc = question.imagem || '';
+            this.editingIndex = index;
+            this.$forceUpdate();
+        },
         prepareData() {
-
             const hasCorrectAnswer = this.answers.some(item => item.correct === true);
 
             if (!hasCorrectAnswer) {
@@ -182,11 +205,18 @@
             const question = {
                 question: this.question,
                 answers: formatedAnswers,
-                image:  this.imageSrc
+                image: this.imageSrc,
+                imagem: this.imageSrc
             }
 
-            this.openChooseCorrectQuestion = false
-            this.$emit('addQuestion', question)
+            this.openChooseCorrectQuestion = false;
+            
+            if (this.editingIndex !== null) {
+                this.$emit('updateQuestion', { question, index: this.editingIndex });
+                this.editingIndex = null;
+            } else {
+                this.$emit('addQuestion', question);
+            }
         },
         deleteImage() {
             this.imageSrc = ''
@@ -194,15 +224,16 @@
     },
     watch : {
         isActive(val) {
-            if (val) {
+            if (val && !this.editingIndex) {
                 this.question = '';
-                this.imageSrc = ''
+                this.imageSrc = '';
                 this.answers = [
                     {
                         name: '',
                         correct: false
                     }
                 ];
+                this.editingIndex = null;
             }
         }
     },
@@ -223,18 +254,63 @@
             width: 27em;
         }
 
-        .upload-custom .con-img-upload {
+        .upload-custom {
             display: flex;
             justify-content: center;
+            margin-bottom: 1rem;
 
-            .con-input-upload {
-                background-color: #8a2253;
-                .vs-upload--button-upload {
-                    color:#f2cb05;
+            .upload-custom {
+                color: white !important;
+                .btn-upload-all {
+                    color: white !important;
                 }
             }
-            .img-upload {
-                margin-left: 14.5em;
+
+            .image-preview-container {
+                position: relative;
+                width: 300px;
+                height: 200px;
+                border: 2px solid #8a2253;
+                border-radius: 8px;
+                overflow: hidden;
+
+                .preview-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .delete-image-icon {
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    background: rgba(255, 255, 255, 0.8);
+                    border-radius: 50%;
+                    padding: 4px;
+                    cursor: pointer;
+                    color: #c00808;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        background: rgba(255, 255, 255, 1);
+                        transform: scale(1.1);
+                    }
+                }
+            }
+
+            .con-img-upload {
+                display: flex;
+                justify-content: center;
+
+                .con-input-upload {
+                    background-color: #8a2253;
+                    .vs-upload--button-upload {
+                        color:#f2cb05;
+                    }
+                }
+                .img-upload {
+                    margin-left: 14.5em;
+                }
             }
         }
         .questions-answer {

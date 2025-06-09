@@ -28,30 +28,30 @@ export default {
 
 <style>
   #app{
-    font-family: Arial, sans-serif
+    font-family: 'Berlin Sans FB', sans-serif
   }
   .footer {
     position: fixed;
     bottom: 0;
     right: 0;
     text-align: right;
-    font-family: 'OwnWritten', sans-serif;
+    font-family: 'Berlin Sans FB', sans-serif;
     font-size: 25px;
   }
 
   @font-face {
-    font-family: 'OwnWritten';
-    src: url('./assets/ownWritten.ttf') format('truetype');
+    font-family: 'Berlin Sans FB';
+    src: url('./assets/BRLNSR.TTF') format('truetype');
   }
 
   .custom-font {
-    font-family: 'Blueberry ';
-    src: url('./assets/Blueberry .ttf') format('truetype');
+    font-family: 'Berlin Sans FB ';
+    src: url('./assets/BRLNSR.TTF') format('truetype');
     font-size: 30px
   }
 
   .fontt {
-    font-family: 'OwnWritten', sans-serif;
+    font-family: "Berlin Sans FB", "Montserrat", Helvetica, Arial, sans-serif !important;
     font-weight: 400
   }
 
