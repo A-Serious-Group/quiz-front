@@ -1,12 +1,12 @@
 <template>
     <div>
 
-        <h1 class="fontt p-3 pb-0" style="font-size: 3em;">{{ game.name }}</h1>
+        <h1 class="fontt-new p-3 pb-0" style="font-size: 3em;">{{ game.name }}</h1>
         <vs-divider></vs-divider>
 
         <div class="question-filds">
             <div class="flex items-center justify-center question-title mb-6">
-                <h1 style="font-size: 3em;" class="fontt">{{ questions[currentQuestion].question }}</h1>
+                <h1 style="font-size: 3em;" class="fontt-new">{{ questions[currentQuestion].question }}</h1>
             </div>
 
             <div class="upload-custom mt-5">
@@ -179,6 +179,13 @@ export default {
 </script>
   
 <style lang="scss">
+    @font-face {
+        font-family: 'Kindergarten';
+        src: url('@/assets/kindergarten.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     .upload-custom {
     display: flex;
     justify-content: center;
@@ -195,5 +202,10 @@ export default {
         object-fit: contain;
         display: block;
         margin: 0 auto;
+    }
+
+    .fontt-new {
+        font-family: "Kindergarten", "Montserrat", Helvetica, Arial, sans-serif !important;
+        font-weight: 400
     }
 </style>

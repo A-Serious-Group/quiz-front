@@ -13,7 +13,7 @@
         </div>
         
         <div class="flex items-center justify-center" style="font-size: 2em; ">
-          <p class="custom-font" :style="{ color: data.textColor }">
+          <p class="fontt" :style="{ color: data.textColor }">
             Você acertou um total de {{ data.correctAnswers }} de {{ data.totalQuestions }} perguntas
           </p>
         </div>
