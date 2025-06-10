@@ -41,6 +41,7 @@
                         @on-error="errorUpload()"
                         @on-delete="deleteImage()"
                         automatic
+                        accept="image/*"
                     />
                 </div>
 
